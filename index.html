@@ -10,28 +10,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fff5f7;
-    --bg-2: #f6ecff;
+    --bg: #f7f6f3;
+    --bg-2: #eef0ee;
     --surface: #ffffff;
-    --surface-soft: #fff0f4;
-    --rose: #ec6f9e;
-    --rose-deep: #e75a87;
-    --pink: #ffc2d1;
-    --lavender: #b794d4;
-    --gold: #f0b86e;
-    --text: #5b3a4e;
-    --text-muted: #9b7d8d;
+    --surface-soft: #f4f3ef;
+    --rose: #b06f86;
+    --rose-deep: #9a6075;
+    --pink: #d9c4cb;
+    --lavender: #8c8aa8;
+    --gold: #c79a5b;
+    --text: #3f3a40;
+    --text-muted: #847e86;
     --keep: #4a9d7f;
-    --swap: #d08a3e;
-    --test: #9b6fb0;
-    --shadow: 0 10px 30px rgba(236, 111, 158, 0.15);
+    --swap: #c08a3e;
+    --test: #7d76a3;
+    --shadow: 0 10px 28px rgba(60, 50, 60, 0.10);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #fff5f7 0%, #f9eefc 45%, #fef6f0 100%);
+    background: linear-gradient(135deg, #f7f6f3 0%, #eef0ee 45%, #f5f3ef 100%);
     background-attachment: fixed;
     color: var(--text);
     line-height: 1.7;
@@ -139,7 +139,7 @@
 
   ul.clean { list-style: none; }
   ul.clean li { position: relative; padding-left: 1.6rem; margin: 0.6rem 0; }
-  ul.clean li::before { content: '🌸'; position: absolute; left: 0; font-size: 0.85rem; }
+  ul.clean li::before { content: '•'; position: absolute; left: 0; font-size: 1rem; color: var(--rose); }
   ul.clean li b { color: var(--rose-deep); }
 
   .schedule { display: grid; gap: 0.8rem; }
@@ -172,14 +172,10 @@
   .disclaimer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 2rem; font-style: italic; }
 
   footer { text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.85rem; }
-  footer .big-heart { font-size: 1.6rem; display: block; margin-bottom: 0.5rem; }
+  footer .big-heart { font-size: 1.2rem; display: block; margin-bottom: 0.5rem; opacity: 0.7; }
 </style>
 </head>
 <body>
-  <div class="hearts">
-    <span>💗</span><span>🤍</span><span>💜</span><span>🌸</span><span>💗</span>
-  </div>
-
   <div class="wrap">
     <header>
       <div class="kicker">a little corner of the internet</div>
