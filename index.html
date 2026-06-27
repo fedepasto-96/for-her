@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>For Her 💛</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +21,9 @@
     --gold: #f0b86e;
     --text: #5b3a4e;
     --text-muted: #9b7d8d;
+    --keep: #4a9d7f;
+    --swap: #d08a3e;
+    --test: #9b6fb0;
     --shadow: 0 10px 30px rgba(236, 111, 158, 0.15);
   }
 
@@ -35,7 +39,7 @@
     padding: 2rem 1.2rem 4rem;
   }
 
-  .wrap { max-width: 820px; margin: 0 auto; }
+  .wrap { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
 
   /* floating soft hearts in the background */
   .hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
@@ -54,7 +58,7 @@
     100% { transform: translateY(-105vh) rotate(40deg); opacity: 0; }
   }
 
-  header { position: relative; z-index: 1; text-align: center; padding: 3rem 1rem 2.5rem; }
+  header { text-align: center; padding: 3rem 1rem 2rem; }
 
   .kicker {
     font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
@@ -79,20 +83,28 @@
     border-radius: 3px;
   }
 
+  /* section heading between blocks */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center; color: var(--rose-deep);
+    font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 600;
+    margin: 3rem 0 0.4rem;
+  }
+  .section-sub { text-align: center; color: var(--text-muted); font-size: 1rem; max-width: 34rem; margin: 0 auto 0.5rem; }
+
   .card {
-    position: relative; z-index: 1;
     background: var(--surface);
     border: 1px solid rgba(236, 111, 158, 0.12);
     border-radius: 22px;
-    padding: 2rem 1.8rem;
-    margin: 1.4rem 0;
+    padding: 1.9rem 1.7rem;
+    margin: 1.3rem 0;
     box-shadow: var(--shadow);
   }
 
   .card h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight: 600; color: var(--rose-deep);
-    margin-bottom: 0.7rem;
+    font-size: 1.45rem; font-weight: 600; color: var(--rose-deep);
+    margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem;
   }
 
   .card p { color: var(--text); }
@@ -106,19 +118,60 @@
     margin-bottom: 1rem;
   }
 
+  .row {
+    display: grid; grid-template-columns: auto 1fr; gap: 0.7rem 1rem;
+    padding: 0.85rem 0; border-bottom: 1px solid rgba(236, 111, 158, 0.1);
+    align-items: start;
+  }
+  .row:last-child { border-bottom: none; }
+  .row .name { font-weight: 700; color: var(--text); grid-column: 1 / -1; display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .row .why { grid-column: 1 / -1; color: var(--text-muted); font-size: 0.93rem; }
+
+  .pill {
+    display: inline-block; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 0.18rem 0.6rem; border-radius: 999px; color: #fff;
+  }
+  .pill.keep { background: var(--keep); }
+  .pill.swap { background: var(--swap); }
+  .pill.test { background: var(--test); }
+  .pill.add  { background: var(--rose); }
+
+  ul.clean { list-style: none; }
+  ul.clean li { position: relative; padding-left: 1.6rem; margin: 0.6rem 0; }
+  ul.clean li::before { content: '🌸'; position: absolute; left: 0; font-size: 0.85rem; }
+  ul.clean li b { color: var(--rose-deep); }
+
+  .schedule { display: grid; gap: 0.8rem; }
+  .slot {
+    display: grid; grid-template-columns: 130px 1fr; gap: 1rem;
+    align-items: center; padding: 0.7rem 0.9rem;
+    background: var(--surface-soft); border-radius: 14px;
+  }
+  .slot .when { font-weight: 700; color: var(--rose-deep); font-size: 0.95rem; }
+  .slot .what { font-size: 0.93rem; }
+  @media (max-width: 520px) { .slot { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+  .shop { display: grid; gap: 0.7rem; }
+  .shop-item {
+    padding: 0.8rem 1rem; background: var(--surface-soft);
+    border-radius: 14px; border: 1px solid rgba(236,111,158,0.12);
+  }
+  .shop-item .need { font-weight: 700; color: var(--rose-deep); }
+  .shop-item .pick { font-size: 0.92rem; color: var(--text); }
+  .shop-item .dose { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.15rem; }
+
   .note {
     background: linear-gradient(135deg, rgba(183,148,212,0.10), rgba(236,111,158,0.08));
     border: 1px dashed rgba(183, 148, 212, 0.4);
-    border-radius: 18px; padding: 1.4rem 1.6rem; margin-top: 1.6rem;
+    border-radius: 18px; padding: 1.3rem 1.5rem; margin-top: 1.4rem;
     color: var(--text-muted); font-size: 0.95rem;
   }
   .note strong { color: var(--lavender); }
 
-  footer {
-    position: relative; z-index: 1;
-    text-align: center; margin-top: 3rem;
-    color: var(--text-muted); font-size: 0.85rem;
-  }
+  .disclaimer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 2rem; font-style: italic; }
+
+  footer { text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.85rem; }
   footer .big-heart { font-size: 1.6rem; display: block; margin-bottom: 0.5rem; }
 </style>
 </head>
@@ -138,19 +191,8 @@
     <div class="card">
       <span class="tag">✨ welcome</span>
       <h2>Hi, lovely</h2>
-      <p>This little site is all yours. Right now it's just a soft, pretty starting point —
-         a blank canvas wrapped in pink and lavender, waiting for your words, your photos,
-         your ideas.</p>
-      <p>Change anything you like. Make it sweet, make it silly, make it completely you.</p>
-    </div>
-
-    <div class="card">
-      <span class="tag">💊 your plan</span>
-      <h2>Supplement Plan</h2>
-      <p>Your personalised supplement routine — what to keep, what to swap, what to add,
-         a daily rhythm, and a shopping list.</p>
-      <p style="margin-top:1rem;"><a href="supplements.html"
-         style="display:inline-block;background:linear-gradient(120deg,var(--rose-deep),var(--lavender));color:#fff;text-decoration:none;font-weight:600;padding:0.6rem 1.4rem;border-radius:999px;">Open my plan →</a></p>
+      <p>This little site is all yours. Below is your personalised supplement plan —
+         and you can change anything you like just by sending a message.</p>
     </div>
 
     <div class="card">
@@ -161,10 +203,81 @@
          and it happens. The page updates itself and goes live online a few seconds later.</p>
     </div>
 
-    <div class="note">
-      <strong>Note for setup:</strong> this is a placeholder starter page. Once the Telegram
-      group is connected, every change you ask for is committed and auto-deployed to the live link.
+    <h2 class="section-title">Supplement Plan 💊</h2>
+    <p class="section-sub">A calm, simple routine for wellness, strength, glow, and balance — built around your body and your day.</p>
+
+    <div class="card">
+      <h2>💊 Your current stack</h2>
+      <div class="row">
+        <div class="name">Omega 3-6-9 <span class="pill swap">swap</span></div>
+        <div class="why">You don't need 6 or 9. Move to an EPA/DHA-only fish oil (~1000mg+ combined) — better for skin, hormones &amp; fertility.</div>
+      </div>
+      <div class="row">
+        <div class="name">Ester-C 500mg <span class="pill keep">keep</span></div>
+        <div class="why">Lovely for skin and collagen.</div>
+      </div>
+      <div class="row">
+        <div class="name">Biotin 5000mcg <span class="pill keep">keep*</span></div>
+        <div class="why">Fine, but high. Pause it a few days before any blood test — it can skew thyroid &amp; cardiac labs.</div>
+      </div>
+      <div class="row">
+        <div class="name">Vitamin D3 7000/week <span class="pill test">test</span></div>
+        <div class="why">That's ~1000 IU/day — likely low. Get your levels checked; most do better at 2000-4000/day, paired with K2.</div>
+      </div>
+      <div class="row">
+        <div class="name">D-Mannose + Cranberry <span class="pill swap">as-needed</span></div>
+        <div class="why">This is really a UTI tool — skip the daily dose unless you get recurrent UTIs.</div>
+      </div>
+      <div class="row">
+        <div class="name">Magnesium glycinate 200mg <span class="pill keep">keep</span></div>
+        <div class="why">Great for sleep, recovery &amp; PMS. Can go up to 300mg.</div>
+      </div>
+      <div class="row">
+        <div class="name">Creatine 5g <span class="pill keep">keep</span></div>
+        <div class="why">Top pick for muscle gain (and skin &amp; focus). Consistency matters more than timing.</div>
+      </div>
     </div>
+
+    <div class="card">
+      <h2>✨ Worth adding</h2>
+      <ul class="clean">
+        <li><b>Protein powder</b> — the #1 thing for muscle gain. Aim ~75-95g protein/day total.</li>
+        <li><b>Ferritin / iron test</b> — lean + monthly cycle often means low iron (affects hair &amp; energy). Test, don't guess.</li>
+        <li><b>Methylfolate 400mcg</b> — supports hormonal balance now, and lays the groundwork for fertility.</li>
+        <li><b>Women's multivitamin</b> — gently covers any gaps from intermittent fasting + a lean intake.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🕒 Your daily rhythm</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">Based on a ~12:00-20:00 eating window — tell me if yours is different.</p>
+      <div class="schedule">
+        <div class="slot"><div class="when">🍽 First meal</div><div class="what">Omega-3 · Vitamin D3 + K2 · Vitamin C · Biotin · Multivitamin · Methylfolate</div></div>
+        <div class="slot"><div class="when">🏋️ Anytime</div><div class="what">Creatine 5g (stir into water or a shake)</div></div>
+        <div class="slot"><div class="when">🌙 Evening</div><div class="what">Magnesium glycinate</div></div>
+        <div class="slot"><div class="when">💧 As-needed</div><div class="what">D-Mannose / Cranberry (only around UTI risk)</div></div>
+      </div>
+      <div class="note"><strong>Tip:</strong> the fat-soluble ones (omega, D, K2) absorb best with food — always take them inside your eating window, never fasted.</div>
+    </div>
+
+    <div class="card">
+      <h2>🛍 Shopping list</h2>
+      <div class="shop">
+        <div class="shop-item"><div class="need">Omega-3 <span class="pill add">new</span></div><div class="pick">Nordic Naturals Ultimate Omega · or Now Foods Ultra Omega-3</div><div class="dose">~1000mg EPA+DHA / day</div></div>
+        <div class="shop-item"><div class="need">Vitamin D3 + K2 <span class="pill add">new</span></div><div class="pick">Sports Research D3+K2 · or Now D3 &amp; K2</div><div class="dose">2000-4000 IU D3 (adjust to your test)</div></div>
+        <div class="shop-item"><div class="need">Protein <span class="pill add">new</span></div><div class="pick">Optimum Nutrition Gold Standard Whey · or a clean isolate</div><div class="dose">1-2 scoops to hit your target</div></div>
+        <div class="shop-item"><div class="need">Methylfolate <span class="pill add">new</span></div><div class="pick">Thorne 5-MTHF · or Solgar Folate</div><div class="dose">400-1000mcg / day</div></div>
+        <div class="shop-item"><div class="need">Women's multivitamin <span class="pill add">new</span></div><div class="pick">Thorne Basic Nutrients · Ritual Essential · Garden of Life Women's</div><div class="dose">per label</div></div>
+        <div class="shop-item"><div class="need">Iron <span class="pill test">if low</span></div><div class="pick">Thorne Iron Bisglycinate</div><div class="dose">25mg — only after a ferritin test</div></div>
+        <div class="shop-item"><div class="need">Keep as-is</div><div class="pick">Magnesium · Creatine · Vitamin C</div><div class="dose">your current ones are great</div></div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>The two biggest levers aren't pills 💛</strong> — hit your protein target, and nudge sleep from 6-7h toward 7.5-8h. Those move muscle gain and hormones more than any capsule. When you're ~3 months from trying to conceive, swap the methylfolate for a full prenatal.
+    </div>
+
+    <p class="disclaimer">General wellness information, made with love — not medical advice. Please confirm vitamin D, iron, and any new supplements with your doctor.</p>
 
     <footer>
       <span class="big-heart">💛</span>
