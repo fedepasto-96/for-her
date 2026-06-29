@@ -176,6 +176,59 @@
   footer { text-align: center; margin-top: 3rem; color: var(--text-muted); font-size: 0.85rem; }
   footer .big-heart { font-size: 2rem; display: block; margin-bottom: 0.5rem; opacity: 1; animation: beat 1.6s ease-in-out infinite; }
   @keyframes beat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+  /* weekly calendar */
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.6rem; }
+  .day {
+    background: var(--surface-soft); border-radius: 14px; padding: 0.8rem 0.6rem;
+    border: 1px solid rgba(236,111,158,0.14); text-align: center;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .day .dname { font-weight: 700; color: var(--rose-deep); font-size: 0.85rem; }
+  .day .dfocus { font-size: 0.8rem; color: var(--text); line-height: 1.4; }
+  .day .demoji { font-size: 1.3rem; }
+  @media (max-width: 760px) { .week { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 380px) { .week { grid-template-columns: 1fr; } }
+
+  /* checklist */
+  .checklist { display: grid; gap: 0.5rem; }
+  .check-group + .check-group { margin-top: 0.9rem; }
+  .check-head { font-weight: 700; color: var(--rose-deep); font-size: 0.9rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
+  .check {
+    display: flex; align-items: flex-start; gap: 0.7rem; cursor: pointer;
+    padding: 0.6rem 0.8rem; background: var(--surface-soft); border-radius: 12px;
+    border: 1px solid rgba(236,111,158,0.12); transition: background 0.15s;
+    user-select: none;
+  }
+  .check:hover { background: #ffe8f2; }
+  .check input { display: none; }
+  .check .box {
+    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 7px;
+    border: 2px solid var(--pink); background: #fff; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; color: #fff; transition: all 0.15s;
+  }
+  .check input:checked + .box { background: var(--rose); border-color: var(--rose); }
+  .check input:checked + .box::after { content: '✓'; }
+  .check .ctext { font-size: 0.94rem; color: var(--text); }
+  .check input:checked ~ .ctext { color: var(--text-muted); text-decoration: line-through; }
+  .reset-btn {
+    margin-top: 1rem; background: none; border: 1px solid var(--pink); color: var(--rose-deep);
+    font-family: inherit; font-weight: 600; font-size: 0.82rem; cursor: pointer;
+    padding: 0.45rem 1rem; border-radius: 999px; transition: all 0.15s;
+  }
+  .reset-btn:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+  /* fitness */
+  .fit-slot {
+    display: grid; grid-template-columns: 150px 1fr; gap: 1rem; align-items: start;
+    padding: 0.85rem 0.9rem; background: var(--surface-soft); border-radius: 14px;
+    margin-bottom: 0.7rem; border: 1px solid rgba(236,111,158,0.1);
+  }
+  .fit-slot .fday { font-weight: 700; color: var(--rose-deep); font-size: 0.92rem; }
+  .fit-slot .fwhat { font-size: 0.92rem; }
+  .fit-slot .fwhat .ex { color: var(--text-muted); font-size: 0.86rem; display: block; margin-top: 0.2rem; }
+  @media (max-width: 520px) { .fit-slot { grid-template-columns: 1fr; gap: 0.25rem; } }
 </style>
 </head>
 <body>
@@ -193,8 +246,9 @@
     <div class="card">
       <span class="tag">✨ welcome</span>
       <h2>Hi, lovely</h2>
-      <p>This little site is all yours. Below is your personalised supplement plan —
-         and you can change anything you like just by sending a message.</p>
+      <p>This little site is your personal wellness hub 💕 — your supplement plan, a weekly
+         calendar, a daily checklist you can tick off, and a fitness plan, all in one place.
+         Change anything you like just by sending a message.</p>
     </div>
 
     <div class="card">
@@ -213,39 +267,39 @@
       <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">What you're taking right now — keep these going until the bottles run out. 💛</p>
       <div class="row">
         <div class="name">Omega 3-6-9</div>
-        <div class="why">Finishing your current bottle, then switching (see the new plan below).</div>
+        <div class="why"><b>What it does:</b> heart, brain &amp; skin; calms inflammation and supports hormones. Finishing your current bottle, then switching (see the new plan below).</div>
       </div>
       <div class="row">
         <div class="name">Vitamin C — Ester-C 500mg</div>
-        <div class="why">Finishing it up. ~3 months in — a good run. Collagen takes its place next.</div>
+        <div class="why"><b>What it does:</b> antioxidant &amp; immune support, and the cofactor that lets your body build collagen. Finishing it up. ~3 months in — a good run. Collagen takes its place next.</div>
       </div>
       <div class="row">
         <div class="name">Biotin 5000mcg <span class="pill keep">on now</span></div>
-        <div class="why">Working well for your hair &amp; nails. You're planning a 3-month break once this bottle's done — just message me when you stop and I'll move it. <em>(Also: pause it a few days before any blood test — it can skew thyroid &amp; cardiac labs.)</em></div>
+        <div class="why"><b>What it does:</b> a B-vitamin for hair strength &amp; nail growth. Working well for you. You're planning a 3-month break once this bottle's done — just message me when you stop and I'll move it. <em>(Also: pause it a few days before any blood test — it can skew thyroid &amp; cardiac labs.)</em></div>
       </div>
       <div class="row">
         <div class="name">Vitamin D3 — 2 caps/week</div>
-        <div class="why">Totally safe at this dose. It works out to ~1000 IU/day, which is on the gentle side — fine for maintenance, but many women feel better a bit higher. No need to change blind: a quick blood test tells us whether to stay here or nudge up to 2000-4000/day (with K2). 👍</div>
+        <div class="why"><b>What it does:</b> bones, immune system &amp; mood; pairs with K2 to steer calcium into bone, not arteries. Totally safe at this dose — it works out to ~1000 IU/day, on the gentle side. Fine for maintenance, but many women feel better a bit higher. No need to change blind: a quick blood test tells us whether to stay here or nudge up to 2000-4000/day (with K2). 👍</div>
       </div>
       <div class="row">
         <div class="name">Magnesium glycinate 200mg <span class="pill keep">keep</span></div>
-        <div class="why">Great for sleep, recovery &amp; PMS. Can go up to 300mg.</div>
+        <div class="why"><b>What it does:</b> sleep, muscle recovery, calm &amp; easing PMS. Can go up to 300mg.</div>
       </div>
       <div class="row">
         <div class="name">Creatine 5g <span class="pill keep">keep</span></div>
-        <div class="why">Top pick for muscle gain (and skin &amp; focus). Consistency matters more than timing.</div>
+        <div class="why"><b>What it does:</b> strength &amp; muscle gain, plus a little mental focus. Top pick for muscle gain. Consistency matters more than timing.</div>
       </div>
       <div class="row">
         <div class="name">Whey protein <span class="pill keep">keep</span></div>
-        <div class="why">Your main muscle-building protein. 1 scoop (~20-25g) post-workout or whenever you're short for the day.</div>
+        <div class="why"><b>What it does:</b> a complete protein to build &amp; repair muscle. Your main one — 1 scoop (~20-25g) post-workout or whenever you're short for the day.</div>
       </div>
       <div class="row">
         <div class="name">Clear protein <span class="pill keep">keep</span></div>
-        <div class="why">Lighter, juice-like whey isolate — easy on the stomach. Use it on days whey feels too heavy.</div>
+        <div class="why"><b>What it does:</b> lighter, juice-like whey isolate — same muscle support, easier on the stomach. Use it on days whey feels too heavy.</div>
       </div>
       <div class="row">
         <div class="name">D-Mannose + Cranberry <span class="pill swap">as-needed</span></div>
-        <div class="why">Really a UTI tool — skip the daily dose unless you get recurrent UTIs.</div>
+        <div class="why"><b>What it does:</b> urinary-tract support — helps keep bacteria from sticking. Really a UTI tool — skip the daily dose unless you get recurrent UTIs.</div>
       </div>
     </div>
 
@@ -254,11 +308,11 @@
       <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">Where we're headed — roll these in <strong>as your current bottles run out</strong>. No rush, finish what you have first.</p>
       <div class="row">
         <div class="name">Omega 3-6-9 → EPA/DHA fish oil <span class="pill swap">swap</span></div>
-        <div class="why">You don't need the 6 &amp; 9. A pure EPA/DHA fish oil (~1000mg+ combined) is better for skin, hormones &amp; fertility.</div>
+        <div class="why"><b>What it does:</b> heart, brain &amp; skin, calms inflammation, supports hormones &amp; fertility. You don't need the 6 &amp; 9 — a pure EPA/DHA fish oil (~1000mg+ combined) is better.</div>
       </div>
       <div class="row">
         <div class="name">Vitamin C → Collagen <span class="pill swap">switch</span></div>
-        <div class="why">Collagen peptides (~10g/day) for skin, hair &amp; joints. Keep a <em>little</em> vitamin C with it — see the note below.</div>
+        <div class="why"><b>What it does:</b> skin elasticity &amp; hydration, plus hair, nails and joints. Collagen peptides (~10g/day). Keep a <em>little</em> vitamin C with it — see the note below.</div>
       </div>
       <div class="row">
         <div class="name">Biotin → 3-month break <span class="pill test">pause</span></div>
@@ -270,15 +324,15 @@
       </div>
       <div class="row">
         <div class="name">Add: Ferritin / iron test <span class="pill add">new</span></div>
-        <div class="why">Lean + monthly cycle often means low iron (affects hair &amp; energy). Test, don't guess.</div>
+        <div class="why"><b>What it does:</b> carries oxygen in the blood — supports energy &amp; hair. Lean + a monthly cycle often means low iron. Test, don't guess.</div>
       </div>
       <div class="row">
         <div class="name">Add: Methylfolate 400mcg <span class="pill add">new</span></div>
-        <div class="why">Supports hormonal balance now, and lays the groundwork for fertility.</div>
+        <div class="why"><b>What it does:</b> active folate for hormonal balance now, and groundwork for fertility.</div>
       </div>
       <div class="row">
         <div class="name">Add: Women's multivitamin <span class="pill add">new</span></div>
-        <div class="why">Gently covers any gaps from intermittent fasting + a lean intake.</div>
+        <div class="why"><b>What it does:</b> a safety net that gently fills any gaps from intermittent fasting + a lean intake.</div>
       </div>
       <div class="note" style="margin-top:1.3rem;">
         <strong>Vitamin C + collagen — do you need both?</strong> Not two big doses, no. But they're partners, not duplicates: vitamin C is the cofactor your body <em>requires</em> to turn collagen into actual skin and joint tissue. So the sweet spot is collagen + a small amount of vitamin C (a combined powder, or ~250-500mg C on the side). If you eat plenty of fruit &amp; veg you may already get enough — the separate high-dose tablet isn't essential once you're on collagen.
@@ -311,22 +365,68 @@
       </div>
     </div>
 
+    <h2 class="section-title">Your Week 📅</h2>
+    <p class="section-sub">A gentle rhythm for the whole week — movement, rest, and self-care woven together.</p>
+
     <div class="card">
-      <h2>🌼 What each one does</h2>
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">A quick one-line job description for everything in your world.</p>
-      <div class="row"><div class="name">Omega-3 (EPA/DHA)</div><div class="why">Heart, brain &amp; skin; calms inflammation and supports hormones.</div></div>
-      <div class="row"><div class="name">Vitamin C</div><div class="why">Antioxidant + immune support, and the cofactor that lets your body build collagen.</div></div>
-      <div class="row"><div class="name">Collagen</div><div class="why">Skin elasticity &amp; hydration, plus hair, nails and joint support.</div></div>
-      <div class="row"><div class="name">Biotin</div><div class="why">A B-vitamin for hair strength and nail growth.</div></div>
-      <div class="row"><div class="name">Vitamin D3 (+ K2)</div><div class="why">Bones, immune system &amp; mood; K2 steers calcium into bone, not arteries.</div></div>
-      <div class="row"><div class="name">Magnesium glycinate</div><div class="why">Sleep, muscle recovery, calm and easing PMS.</div></div>
-      <div class="row"><div class="name">Creatine</div><div class="why">Strength &amp; muscle gain — plus a little extra mental focus.</div></div>
-      <div class="row"><div class="name">Whey protein</div><div class="why">Complete protein to build and repair muscle.</div></div>
-      <div class="row"><div class="name">Clear protein</div><div class="why">Lighter whey isolate — same muscle support, easier on the stomach.</div></div>
-      <div class="row"><div class="name">D-Mannose + Cranberry</div><div class="why">Urinary-tract support — helps keep bacteria from sticking. Use around UTI risk.</div></div>
-      <div class="row"><div class="name">Methylfolate</div><div class="why">Active folate for hormonal balance and fertility groundwork.</div></div>
-      <div class="row"><div class="name">Women's multivitamin</div><div class="why">A safety net that fills small gaps from a lean or fasted diet.</div></div>
-      <div class="row"><div class="name">Iron</div><div class="why">Carries oxygen in the blood — supports energy and hair (only if a test shows you're low).</div></div>
+      <h2>📅 Weekly calendar</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">A balanced split — 3 strength days, movement, mobility, and proper rest. Tell me if you'd rather train different days.</p>
+      <div class="week">
+        <div class="day"><div class="dname">Mon</div><div class="demoji">💪</div><div class="dfocus">Strength — lower body</div></div>
+        <div class="day"><div class="dname">Tue</div><div class="demoji">🚶‍♀️</div><div class="dfocus">Cardio / brisk walk</div></div>
+        <div class="day"><div class="dname">Wed</div><div class="demoji">💪</div><div class="dfocus">Strength — upper body</div></div>
+        <div class="day"><div class="dname">Thu</div><div class="demoji">🧘‍♀️</div><div class="dfocus">Yoga / mobility</div></div>
+        <div class="day"><div class="dname">Fri</div><div class="demoji">💪</div><div class="dfocus">Strength — full body</div></div>
+        <div class="day"><div class="dname">Sat</div><div class="demoji">🌳</div><div class="dfocus">Active recovery, outdoors</div></div>
+        <div class="day"><div class="dname">Sun</div><div class="demoji">🛁</div><div class="dfocus">Rest, meal prep &amp; reset</div></div>
+      </div>
+      <div class="note"><strong>Cycle-friendly tip:</strong> push strength hardest in the week or two after your period (energy peaks), and lean into the gentle yoga/walk days when you feel low or crampy. Your body, your pace. 💕</div>
+    </div>
+
+    <h2 class="section-title">Daily Checklist ✅</h2>
+    <p class="section-sub">Tick these off through the day — they save automatically on this device.</p>
+
+    <div class="card">
+      <h2>✅ Today's checklist</h2>
+      <div class="checklist" id="checklist">
+        <div class="check-group">
+          <div class="check-head">🌅 Morning</div>
+          <label class="check"><input type="checkbox" data-k="m1"><span class="box"></span><span class="ctext">Big glass of water on waking</span></label>
+          <label class="check"><input type="checkbox" data-k="m2"><span class="box"></span><span class="ctext">A few minutes of daylight / fresh air</span></label>
+        </div>
+        <div class="check-group">
+          <div class="check-head">🍽 With first meal</div>
+          <label class="check"><input type="checkbox" data-k="s1"><span class="box"></span><span class="ctext">Supplements (omega · D3 · vitamin C · biotin)</span></label>
+          <label class="check"><input type="checkbox" data-k="s2"><span class="box"></span><span class="ctext">Protein with the meal</span></label>
+        </div>
+        <div class="check-group">
+          <div class="check-head">💪 Through the day</div>
+          <label class="check"><input type="checkbox" data-k="d1"><span class="box"></span><span class="ctext">Movement or training done</span></label>
+          <label class="check"><input type="checkbox" data-k="d2"><span class="box"></span><span class="ctext">Creatine 5g</span></label>
+          <label class="check"><input type="checkbox" data-k="d3"><span class="box"></span><span class="ctext">Protein target hit (whey/clear if short)</span></label>
+          <label class="check"><input type="checkbox" data-k="d4"><span class="box"></span><span class="ctext">~2L water</span></label>
+        </div>
+        <div class="check-group">
+          <div class="check-head">🌙 Evening</div>
+          <label class="check"><input type="checkbox" data-k="e1"><span class="box"></span><span class="ctext">Magnesium glycinate</span></label>
+          <label class="check"><input type="checkbox" data-k="e2"><span class="box"></span><span class="ctext">Screens down, wind-down for 7.5-8h sleep</span></label>
+        </div>
+      </div>
+      <button class="reset-btn" id="resetChecks">↺ Reset for a new day</button>
+    </div>
+
+    <h2 class="section-title">Fitness Plan 💪</h2>
+    <p class="section-sub">Simple, strength-first, and built for lean muscle &amp; long-term health — not punishment.</p>
+
+    <div class="card">
+      <h2>💪 Your training plan</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">3 strength sessions + movement. Lift in the 8-12 rep range, add a little weight over time, and rest 60-90s between sets.</p>
+      <div class="fit-slot"><div class="fday">💪 Lower body</div><div class="fwhat">Glutes &amp; legs<span class="ex">Squats · hip thrusts · Romanian deadlifts · lunges · calf raises</span></div></div>
+      <div class="fit-slot"><div class="fday">💪 Upper body</div><div class="fwhat">Back, shoulders &amp; arms<span class="ex">Rows · lat pulldown · shoulder press · push-ups · bicep curls</span></div></div>
+      <div class="fit-slot"><div class="fday">💪 Full body</div><div class="fwhat">A bit of everything<span class="ex">Deadlift · goblet squat · chest press · band walks · plank</span></div></div>
+      <div class="fit-slot"><div class="fday">🚶‍♀️ Cardio</div><div class="fwhat">Heart &amp; recovery<span class="ex">30-40 min brisk walk, light jog, cycle or dance — keep it easy &amp; enjoyable</span></div></div>
+      <div class="fit-slot"><div class="fday">🧘‍♀️ Mobility</div><div class="fwhat">Flexibility &amp; calm<span class="ex">20-30 min yoga or stretching — great for sleep, stress &amp; recovery</span></div></div>
+      <div class="note"><strong>The golden rules 💕</strong> — progress slowly (a little heavier or one more rep each week), eat enough protein to actually build muscle, and never skip sleep. Strong is the goal, not small.</div>
     </div>
 
     <div class="note">
@@ -340,5 +440,26 @@
       Made just for you, with all my love. 🎀
     </footer>
   </div>
+  <script>
+    (function () {
+      var boxes = document.querySelectorAll('#checklist input[type="checkbox"]');
+      var KEY = 'forher-checklist';
+      var saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+      boxes.forEach(function (b) {
+        if (saved[b.dataset.k]) b.checked = true;
+        b.addEventListener('change', function () {
+          saved[b.dataset.k] = b.checked;
+          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        });
+      });
+      var reset = document.getElementById('resetChecks');
+      if (reset) reset.addEventListener('click', function () {
+        boxes.forEach(function (b) { b.checked = false; });
+        saved = {};
+        try { localStorage.removeItem(KEY); } catch (e) {}
+      });
+    })();
+  </script>
 </body>
 </html>
