@@ -401,6 +401,16 @@
       var KEY = 'forher-calendar';
       var store = {};
       try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
+      // one-time seed of entries Linh asked to log (won't override her own edits)
+      var SEED = { '2026-6-1': 'Hot yoga stretching 🧘‍♀️', '2026-6-2': 'Leg day 💪' };
+      var SEED_FLAG = 'forher-cal-seed-v1';
+      try {
+        if (!localStorage.getItem(SEED_FLAG)) {
+          Object.keys(SEED).forEach(function (k) { if (!store[k]) store[k] = SEED[k]; });
+          localStorage.setItem(SEED_FLAG, '1');
+          localStorage.setItem(KEY, JSON.stringify(store));
+        }
+      } catch (e) {}
       var WD = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
       var MO = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       wdRow.innerHTML = WD.map(function (d) { return '<div class="cal-wd">' + d + '</div>'; }).join('');
