@@ -41,25 +41,6 @@
 
   .wrap { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
 
-  /* floating soft hearts in the background */
-  .hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-  .hearts span {
-    position: absolute; bottom: -40px; font-size: 1.5rem; opacity: 0.6;
-    animation: float 14s linear infinite;
-  }
-  .hearts span:nth-child(1){ left: 8%;  animation-delay: 0s;  }
-  .hearts span:nth-child(2){ left: 26%; animation-delay: 3s;  font-size: 1.1rem; }
-  .hearts span:nth-child(3){ left: 48%; animation-delay: 6s;  font-size: 2rem; }
-  .hearts span:nth-child(4){ left: 67%; animation-delay: 2s;  }
-  .hearts span:nth-child(5){ left: 85%; animation-delay: 8s;  font-size: 1.2rem; }
-  .hearts span:nth-child(6){ left: 38%; animation-delay: 10s; font-size: 1.3rem; }
-  .hearts span:nth-child(7){ left: 76%; animation-delay: 5s;  font-size: 0.95rem; }
-  @keyframes float {
-    0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
-    15%  { opacity: 0.65; }
-    100% { transform: translateY(-105vh) rotate(40deg); opacity: 0; }
-  }
-
   header { text-align: center; padding: 3rem 1rem 2rem; }
 
   .kicker {
@@ -141,7 +122,7 @@
 
   ul.clean { list-style: none; }
   ul.clean li { position: relative; padding-left: 1.6rem; margin: 0.6rem 0; }
-  ul.clean li::before { content: '🌸'; position: absolute; left: 0; font-size: 0.95rem; }
+  ul.clean li::before { content: '•'; position: absolute; left: 0; font-size: 1rem; color: var(--rose); }
   ul.clean li b { color: var(--rose-deep); }
 
   .schedule { display: grid; gap: 0.8rem; }
@@ -207,22 +188,43 @@
     .cal-wd { font-size: 0.6rem; }
   }
 
-  /* fitness */
-  .fit-slot {
-    display: grid; grid-template-columns: 150px 1fr; gap: 1rem; align-items: start;
-    padding: 0.85rem 0.9rem; background: var(--surface-soft); border-radius: 14px;
-    margin-bottom: 0.7rem; border: 1px solid rgba(236,111,158,0.1);
+  /* to-do list */
+  .todo-add { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+  .todo-input {
+    flex: 1; font-family: inherit; font-size: 0.95rem; color: var(--text);
+    padding: 0.6rem 0.9rem; border-radius: 12px; border: 1px solid var(--pink);
+    background: #fff; outline: none;
   }
-  .fit-slot .fday { font-weight: 700; color: var(--rose-deep); font-size: 0.92rem; }
-  .fit-slot .fwhat { font-size: 0.92rem; }
-  .fit-slot .fwhat .ex { color: var(--text-muted); font-size: 0.86rem; display: block; margin-top: 0.2rem; }
-  @media (max-width: 520px) { .fit-slot { grid-template-columns: 1fr; gap: 0.25rem; } }
+  .todo-input:focus { border-color: var(--rose); }
+  .todo-btn {
+    background: var(--rose); color: #fff; border: none; font-family: inherit; font-weight: 700;
+    font-size: 0.9rem; padding: 0.6rem 1.2rem; border-radius: 12px; cursor: pointer; transition: background 0.15s;
+  }
+  .todo-btn:hover { background: var(--rose-deep); }
+  .todo-list { display: grid; gap: 0.5rem; }
+  .todo-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.6rem 0.8rem; background: var(--surface-soft); border-radius: 12px;
+    border: 1px solid rgba(236,111,158,0.12);
+  }
+  .todo-item .tbox {
+    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 7px; cursor: pointer;
+    border: 2px solid var(--pink); background: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; transition: all 0.15s;
+  }
+  .todo-item.done .tbox { background: var(--rose); border-color: var(--rose); }
+  .todo-item.done .tbox::after { content: '✓'; }
+  .todo-item .ttext { flex: 1; font-size: 0.95rem; color: var(--text); word-break: break-word; }
+  .todo-item.done .ttext { color: var(--text-muted); text-decoration: line-through; }
+  .todo-del {
+    flex: 0 0 auto; background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 1.2rem; line-height: 1; padding: 0.1rem 0.3rem; border-radius: 6px; transition: color 0.15s;
+  }
+  .todo-del:hover { color: var(--rose-deep); }
+  .todo-empty { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 0.5rem 0; }
 </style>
 </head>
 <body>
-  <div class="hearts">
-    <span>💗</span><span>🌸</span><span>💖</span><span>🎀</span><span>💕</span><span>🌷</span><span>💞</span>
-  </div>
   <div class="wrap">
     <header>
       <div class="kicker">a little corner of the internet</div>
@@ -235,7 +237,7 @@
       <span class="tag">✨ welcome</span>
       <h2>Hi, lovely</h2>
       <p>This little site is your personal wellness hub 💕 — your supplement plan, a monthly
-         calendar you can fill in yourself, and a fitness plan, all in one place.
+         calendar and a to-do list you fill in yourself, all in one place.
          Change anything you like just by sending a message.</p>
     </div>
 
@@ -367,18 +369,17 @@
       <p style="color:var(--text-muted); font-size:0.82rem; margin-top:1rem; text-align:center;">💡 Tap a day to write your plan · tap it again to edit · clear the text to remove it.</p>
     </div>
 
-    <h2 class="section-title">Fitness Plan 💪</h2>
-    <p class="section-sub">Simple, strength-first, and built for lean muscle &amp; long-term health — not punishment.</p>
+    <h2 class="section-title">To-Do List ✅</h2>
+    <p class="section-sub">Your own list — add whatever you like. It saves on this device.</p>
 
     <div class="card">
-      <h2>💪 Your training plan</h2>
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">3 strength sessions + movement. Lift in the 8-12 rep range, add a little weight over time, and rest 60-90s between sets.</p>
-      <div class="fit-slot"><div class="fday">💪 Lower body</div><div class="fwhat">Glutes &amp; legs<span class="ex">Squats · hip thrusts · Romanian deadlifts · lunges · calf raises</span></div></div>
-      <div class="fit-slot"><div class="fday">💪 Upper body</div><div class="fwhat">Back, shoulders &amp; arms<span class="ex">Rows · lat pulldown · shoulder press · push-ups · bicep curls</span></div></div>
-      <div class="fit-slot"><div class="fday">💪 Full body</div><div class="fwhat">A bit of everything<span class="ex">Deadlift · goblet squat · chest press · band walks · plank</span></div></div>
-      <div class="fit-slot"><div class="fday">🚶‍♀️ Cardio</div><div class="fwhat">Heart &amp; recovery<span class="ex">30-40 min brisk walk, light jog, cycle or dance — keep it easy &amp; enjoyable</span></div></div>
-      <div class="fit-slot"><div class="fday">🧘‍♀️ Mobility</div><div class="fwhat">Flexibility &amp; calm<span class="ex">20-30 min yoga or stretching — great for sleep, stress &amp; recovery</span></div></div>
-      <div class="note"><strong>The golden rules 💕</strong> — progress slowly (a little heavier or one more rep each week), eat enough protein to actually build muscle, and never skip sleep. Strong is the goal, not small.</div>
+      <h2>✅ Your to-do list</h2>
+      <form class="todo-add" id="todoForm">
+        <input type="text" id="todoInput" class="todo-input" placeholder="Add a task…" autocomplete="off">
+        <button type="submit" class="todo-btn">Add</button>
+      </form>
+      <div class="todo-list" id="todoList"></div>
+      <p class="todo-empty" id="todoEmpty">Nothing here yet — add your first task above. 💕</p>
     </div>
 
     <div class="note">
@@ -459,6 +460,47 @@
         viewM++; if (viewM > 11) { viewM = 0; viewY++; } render();
       });
 
+      render();
+    })();
+
+    (function () {
+      var form = document.getElementById('todoForm');
+      var input = document.getElementById('todoInput');
+      var list = document.getElementById('todoList');
+      var empty = document.getElementById('todoEmpty');
+      if (!form) return;
+      var KEY = 'forher-todos';
+      var items = [];
+      try { items = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { items = []; }
+      function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {} }
+      function render() {
+        empty.style.display = items.length ? 'none' : 'block';
+        list.innerHTML = items.map(function (it, i) {
+          return '<div class="todo-item' + (it.done ? ' done' : '') + '" data-i="' + i + '">' +
+                 '<span class="tbox" data-act="toggle"></span>' +
+                 '<span class="ttext">' + esc(it.text) + '</span>' +
+                 '<button class="todo-del" data-act="del" aria-label="Delete">×</button>' +
+                 '</div>';
+        }).join('');
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = input.value.trim();
+        if (!v) return;
+        items.push({ text: v, done: false });
+        input.value = '';
+        save(); render();
+      });
+      list.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-act]');
+        if (!el) return;
+        var row = e.target.closest('.todo-item');
+        var i = parseInt(row.dataset.i, 10);
+        if (el.dataset.act === 'toggle') items[i].done = !items[i].done;
+        else if (el.dataset.act === 'del') items.splice(i, 1);
+        save(); render();
+      });
       render();
     })();
   </script>
