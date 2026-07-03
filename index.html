@@ -177,47 +177,35 @@
   footer .big-heart { font-size: 2rem; display: block; margin-bottom: 0.5rem; opacity: 1; animation: beat 1.6s ease-in-out infinite; }
   @keyframes beat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-  /* weekly calendar */
-  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.6rem; }
-  .day {
-    background: var(--surface-soft); border-radius: 14px; padding: 0.8rem 0.6rem;
-    border: 1px solid rgba(236,111,158,0.14); text-align: center;
-    display: flex; flex-direction: column; gap: 0.4rem;
+  /* monthly calendar */
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .cal-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 600; color: var(--rose-deep); }
+  .cal-nav {
+    background: var(--surface-soft); border: 1px solid var(--pink); color: var(--rose-deep);
+    width: 38px; height: 38px; border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer;
+    font-family: inherit; transition: all 0.15s;
   }
-  .day .dname { font-weight: 700; color: var(--rose-deep); font-size: 0.85rem; }
-  .day .dfocus { font-size: 0.8rem; color: var(--text); line-height: 1.4; }
-  .day .demoji { font-size: 1.3rem; }
-  @media (max-width: 760px) { .week { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 380px) { .week { grid-template-columns: 1fr; } }
-
-  /* checklist */
-  .checklist { display: grid; gap: 0.5rem; }
-  .check-group + .check-group { margin-top: 0.9rem; }
-  .check-head { font-weight: 700; color: var(--rose-deep); font-size: 0.9rem; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
-  .check {
-    display: flex; align-items: flex-start; gap: 0.7rem; cursor: pointer;
-    padding: 0.6rem 0.8rem; background: var(--surface-soft); border-radius: 12px;
-    border: 1px solid rgba(236,111,158,0.12); transition: background 0.15s;
-    user-select: none;
+  .cal-nav:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem; }
+  .cal-grid + .cal-grid { margin-top: 0.4rem; }
+  .cal-wd { text-align: center; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.5px; text-transform: uppercase; color: var(--lavender); padding: 0.3rem 0; }
+  .cal-cell {
+    min-height: 74px; background: var(--surface-soft); border-radius: 12px; padding: 0.35rem 0.4rem;
+    border: 1px solid rgba(236,111,158,0.12); cursor: pointer; transition: all 0.15s;
+    display: flex; flex-direction: column; gap: 0.15rem; overflow: hidden;
   }
-  .check:hover { background: #ffe8f2; }
-  .check input { display: none; }
-  .check .box {
-    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 7px;
-    border: 2px solid var(--pink); background: #fff; margin-top: 1px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; color: #fff; transition: all 0.15s;
+  .cal-cell:hover { background: #ffe8f2; border-color: var(--pink); }
+  .cal-cell.empty { background: transparent; border: none; cursor: default; }
+  .cal-cell .cnum { font-weight: 700; font-size: 0.82rem; color: var(--text); }
+  .cal-cell.today { border: 2px solid var(--rose); }
+  .cal-cell.today .cnum { color: var(--rose-deep); }
+  .cal-cell.has-note { background: linear-gradient(135deg, #ffe4f1, #fdeaff); border-color: var(--pink); }
+  .cal-cell .cnote { font-size: 0.68rem; color: var(--rose-deep); line-height: 1.25; font-weight: 600; word-break: break-word; }
+  @media (max-width: 520px) {
+    .cal-cell { min-height: 58px; }
+    .cal-cell .cnote { font-size: 0.6rem; }
+    .cal-wd { font-size: 0.6rem; }
   }
-  .check input:checked + .box { background: var(--rose); border-color: var(--rose); }
-  .check input:checked + .box::after { content: '✓'; }
-  .check .ctext { font-size: 0.94rem; color: var(--text); }
-  .check input:checked ~ .ctext { color: var(--text-muted); text-decoration: line-through; }
-  .reset-btn {
-    margin-top: 1rem; background: none; border: 1px solid var(--pink); color: var(--rose-deep);
-    font-family: inherit; font-weight: 600; font-size: 0.82rem; cursor: pointer;
-    padding: 0.45rem 1rem; border-radius: 999px; transition: all 0.15s;
-  }
-  .reset-btn:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
 
   /* fitness */
   .fit-slot {
@@ -246,8 +234,8 @@
     <div class="card">
       <span class="tag">✨ welcome</span>
       <h2>Hi, lovely</h2>
-      <p>This little site is your personal wellness hub 💕 — your supplement plan, a weekly
-         calendar, a daily checklist you can tick off, and a fitness plan, all in one place.
+      <p>This little site is your personal wellness hub 💕 — your supplement plan, a monthly
+         calendar you can fill in yourself, and a fitness plan, all in one place.
          Change anything you like just by sending a message.</p>
     </div>
 
@@ -365,54 +353,18 @@
       </div>
     </div>
 
-    <h2 class="section-title">Your Week 📅</h2>
-    <p class="section-sub">A gentle rhythm for the whole week — movement, rest, and self-care woven together.</p>
+    <h2 class="section-title">Your Calendar 📅</h2>
+    <p class="section-sub">Your month, your plan — tap any day to add or edit what's on. It saves on this device.</p>
 
     <div class="card">
-      <h2>📅 Weekly calendar</h2>
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">A balanced split — 3 strength days, movement, mobility, and proper rest. Tell me if you'd rather train different days.</p>
-      <div class="week">
-        <div class="day"><div class="dname">Mon</div><div class="demoji">💪</div><div class="dfocus">Strength — lower body</div></div>
-        <div class="day"><div class="dname">Tue</div><div class="demoji">🚶‍♀️</div><div class="dfocus">Cardio / brisk walk</div></div>
-        <div class="day"><div class="dname">Wed</div><div class="demoji">💪</div><div class="dfocus">Strength — upper body</div></div>
-        <div class="day"><div class="dname">Thu</div><div class="demoji">🧘‍♀️</div><div class="dfocus">Yoga / mobility</div></div>
-        <div class="day"><div class="dname">Fri</div><div class="demoji">💪</div><div class="dfocus">Strength — full body</div></div>
-        <div class="day"><div class="dname">Sat</div><div class="demoji">🌳</div><div class="dfocus">Active recovery, outdoors</div></div>
-        <div class="day"><div class="dname">Sun</div><div class="demoji">🛁</div><div class="dfocus">Rest, meal prep &amp; reset</div></div>
+      <div class="cal-head">
+        <button id="calPrev" class="cal-nav" aria-label="Previous month">‹</button>
+        <div id="calTitle" class="cal-title"></div>
+        <button id="calNext" class="cal-nav" aria-label="Next month">›</button>
       </div>
-      <div class="note"><strong>Cycle-friendly tip:</strong> push strength hardest in the week or two after your period (energy peaks), and lean into the gentle yoga/walk days when you feel low or crampy. Your body, your pace. 💕</div>
-    </div>
-
-    <h2 class="section-title">Daily Checklist ✅</h2>
-    <p class="section-sub">Tick these off through the day — they save automatically on this device.</p>
-
-    <div class="card">
-      <h2>✅ Today's checklist</h2>
-      <div class="checklist" id="checklist">
-        <div class="check-group">
-          <div class="check-head">🌅 Morning</div>
-          <label class="check"><input type="checkbox" data-k="m1"><span class="box"></span><span class="ctext">Big glass of water on waking</span></label>
-          <label class="check"><input type="checkbox" data-k="m2"><span class="box"></span><span class="ctext">A few minutes of daylight / fresh air</span></label>
-        </div>
-        <div class="check-group">
-          <div class="check-head">🍽 With first meal</div>
-          <label class="check"><input type="checkbox" data-k="s1"><span class="box"></span><span class="ctext">Supplements (omega · D3 · vitamin C · biotin)</span></label>
-          <label class="check"><input type="checkbox" data-k="s2"><span class="box"></span><span class="ctext">Protein with the meal</span></label>
-        </div>
-        <div class="check-group">
-          <div class="check-head">💪 Through the day</div>
-          <label class="check"><input type="checkbox" data-k="d1"><span class="box"></span><span class="ctext">Movement or training done</span></label>
-          <label class="check"><input type="checkbox" data-k="d2"><span class="box"></span><span class="ctext">Creatine 5g</span></label>
-          <label class="check"><input type="checkbox" data-k="d3"><span class="box"></span><span class="ctext">Protein target hit (whey/clear if short)</span></label>
-          <label class="check"><input type="checkbox" data-k="d4"><span class="box"></span><span class="ctext">~2L water</span></label>
-        </div>
-        <div class="check-group">
-          <div class="check-head">🌙 Evening</div>
-          <label class="check"><input type="checkbox" data-k="e1"><span class="box"></span><span class="ctext">Magnesium glycinate</span></label>
-          <label class="check"><input type="checkbox" data-k="e2"><span class="box"></span><span class="ctext">Screens down, wind-down for 7.5-8h sleep</span></label>
-        </div>
-      </div>
-      <button class="reset-btn" id="resetChecks">↺ Reset for a new day</button>
+      <div class="cal-grid" id="calWeekdays"></div>
+      <div class="cal-grid" id="calDays"></div>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-top:1rem; text-align:center;">💡 Tap a day to write your plan · tap it again to edit · clear the text to remove it.</p>
     </div>
 
     <h2 class="section-title">Fitness Plan 💪</h2>
@@ -442,23 +394,62 @@
   </div>
   <script>
     (function () {
-      var boxes = document.querySelectorAll('#checklist input[type="checkbox"]');
-      var KEY = 'forher-checklist';
-      var saved = {};
-      try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
-      boxes.forEach(function (b) {
-        if (saved[b.dataset.k]) b.checked = true;
-        b.addEventListener('change', function () {
-          saved[b.dataset.k] = b.checked;
-          try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
-        });
+      var grid = document.getElementById('calDays');
+      var wdRow = document.getElementById('calWeekdays');
+      var title = document.getElementById('calTitle');
+      if (!grid) return;
+      var KEY = 'forher-calendar';
+      var store = {};
+      try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
+      var WD = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+      var MO = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      wdRow.innerHTML = WD.map(function (d) { return '<div class="cal-wd">' + d + '</div>'; }).join('');
+      var now = new Date();
+      var viewY = now.getFullYear(), viewM = now.getMonth();
+      var todayKey = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate();
+
+      function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+      function render() {
+        title.textContent = MO[viewM] + ' ' + viewY;
+        var first = new Date(viewY, viewM, 1);
+        var startDow = (first.getDay() + 6) % 7; // Monday = 0
+        var daysIn = new Date(viewY, viewM + 1, 0).getDate();
+        var html = '';
+        for (var i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
+        for (var d = 1; d <= daysIn; d++) {
+          var key = viewY + '-' + viewM + '-' + d;
+          var note = store[key];
+          var cls = 'cal-cell' + (key === todayKey ? ' today' : '') + (note ? ' has-note' : '');
+          html += '<div class="' + cls + '" data-key="' + key + '">' +
+                  '<span class="cnum">' + d + '</span>' +
+                  (note ? '<span class="cnote">' + esc(note) + '</span>' : '') +
+                  '</div>';
+        }
+        grid.innerHTML = html;
+      }
+
+      grid.addEventListener('click', function (e) {
+        var cell = e.target.closest('.cal-cell');
+        if (!cell || cell.classList.contains('empty')) return;
+        var key = cell.dataset.key;
+        var val = prompt('Plan for this day (leave empty to clear):', store[key] || '');
+        if (val === null) return;
+        val = val.trim();
+        if (val) store[key] = val; else delete store[key];
+        save();
+        render();
       });
-      var reset = document.getElementById('resetChecks');
-      if (reset) reset.addEventListener('click', function () {
-        boxes.forEach(function (b) { b.checked = false; });
-        saved = {};
-        try { localStorage.removeItem(KEY); } catch (e) {}
+
+      document.getElementById('calPrev').addEventListener('click', function () {
+        viewM--; if (viewM < 0) { viewM = 11; viewY--; } render();
       });
+      document.getElementById('calNext').addEventListener('click', function () {
+        viewM++; if (viewM > 11) { viewM = 0; viewY++; } render();
+      });
+
+      render();
     })();
   </script>
 </body>
