@@ -356,7 +356,7 @@
       </div>
       <div class="cal-grid" id="calWeekdays"></div>
       <div class="cal-grid" id="calDays"></div>
-      <p style="color:var(--text-muted); font-size:0.82rem; margin-top:1rem; text-align:center;">💡 Tap a day to write your plan · tap it again to edit · clear the text to remove it.</p>
+      <p style="color:var(--text-muted); font-size:0.82rem; margin-top:1rem; text-align:center;">💡 Your logged entries show on <strong>all your devices</strong>. Just message me to add or change something and I'll sync it everywhere. (You can also tap a day to jot a quick note on this device.)</p>
     </div>
 
     <h2 class="section-title">To-Do List ✅</h2>
@@ -392,16 +392,19 @@
       var KEY = 'forher-calendar';
       var store = {};
       try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
-      // one-time seed of entries Linh asked to log (won't override her own edits)
-      var SEED = { '2026-6-1': 'Hot yoga stretching 🧘‍♀️', '2026-6-2': 'Leg day 💪' };
-      var SEED_FLAG = 'forher-cal-seed-v1';
-      try {
-        if (!localStorage.getItem(SEED_FLAG)) {
-          Object.keys(SEED).forEach(function (k) { if (!store[k]) store[k] = SEED[k]; });
-          localStorage.setItem(SEED_FLAG, '1');
-          localStorage.setItem(KEY, JSON.stringify(store));
-        }
-      } catch (e) {}
+      // Baked-in entries — the source of truth, identical on every device.
+      var BAKED = {
+        '2026-6-1': 'Hot yoga stretching 🧘‍♀️',
+        '2026-6-2': 'Leg day 💪',
+        '2026-6-3': 'Back day',
+        '2026-6-4': 'Full body',
+        '2026-6-5': 'Pilates',
+        '2026-6-6': 'Yoga 12:30',
+        '2026-6-7': 'Yoga 12:30',
+        '2026-6-15': 'Nails 11:00'
+      };
+      // effective note: a local edit (incl. '' = cleared) wins, otherwise the baked entry
+      function noteFor(key) { return store.hasOwnProperty(key) ? store[key] : (BAKED[key] || ''); }
       var WD = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
       var MO = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       wdRow.innerHTML = WD.map(function (d) { return '<div class="cal-wd">' + d + '</div>'; }).join('');
@@ -421,7 +424,7 @@
         for (var i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
         for (var d = 1; d <= daysIn; d++) {
           var key = viewY + '-' + viewM + '-' + d;
-          var note = store[key];
+          var note = noteFor(key);
           var cls = 'cal-cell' + (key === todayKey ? ' today' : '') + (note ? ' has-note' : '');
           html += '<div class="' + cls + '" data-key="' + key + '">' +
                   '<span class="cnum">' + d + '</span>' +
@@ -435,10 +438,11 @@
         var cell = e.target.closest('.cal-cell');
         if (!cell || cell.classList.contains('empty')) return;
         var key = cell.dataset.key;
-        var val = prompt('Plan for this day (leave empty to clear):', store[key] || '');
+        var val = prompt('Plan for this day (leave empty to clear):', noteFor(key));
         if (val === null) return;
         val = val.trim();
-        if (val) store[key] = val; else delete store[key];
+        if (val === (BAKED[key] || '')) delete store[key]; // matches baked → no local override
+        else store[key] = val;                            // custom edit ('' blanks a baked day)
         save();
         render();
       });
