@@ -392,18 +392,27 @@
       var KEY = 'forher-calendar';
       var store = {};
       try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
+      // clear stale local copies so updated baked entries (e.g. the leg-day icon) take over
+      try {
+        if (store['2026-6-2'] === 'Leg day 💪') {
+          delete store['2026-6-2'];
+          localStorage.setItem(KEY, JSON.stringify(store));
+        }
+      } catch (e) {}
       // Baked-in entries — the source of truth, identical on every device.
       var BAKED = {
         '2026-6-1': 'Hot yoga stretching 🧘‍♀️',
-        '2026-6-2': 'Leg day 💪',
+        '2026-6-2': 'Leg day 🦵',
         '2026-6-3': 'Back day',
         '2026-6-4': 'Full body',
         '2026-6-5': 'Arm day',
         '2026-6-6': 'Yoga, aquapilates, cycling',
         '2026-6-7': 'Yoga',
+        '2026-6-8': 'Leg day 🦵',
         '2026-6-10': 'Pilates 12:30',
         '2026-6-13': 'Yoga 20:00',
-        '2026-6-15': 'Nails 11:00'
+        '2026-6-15': 'Nails 11:00',
+        '2026-6-21': 'Party 🎉'
       };
       // effective note: a local edit (incl. '' = cleared) wins, otherwise the baked entry
       function noteFor(key) { return store.hasOwnProperty(key) ? store[key] : (BAKED[key] || ''); }
