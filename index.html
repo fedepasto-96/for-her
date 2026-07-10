@@ -188,40 +188,6 @@
     .cal-wd { font-size: 0.6rem; }
   }
 
-  /* to-do list */
-  .todo-add { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-  .todo-input {
-    flex: 1; font-family: inherit; font-size: 0.95rem; color: var(--text);
-    padding: 0.6rem 0.9rem; border-radius: 12px; border: 1px solid var(--pink);
-    background: #fff; outline: none;
-  }
-  .todo-input:focus { border-color: var(--rose); }
-  .todo-btn {
-    background: var(--rose); color: #fff; border: none; font-family: inherit; font-weight: 700;
-    font-size: 0.9rem; padding: 0.6rem 1.2rem; border-radius: 12px; cursor: pointer; transition: background 0.15s;
-  }
-  .todo-btn:hover { background: var(--rose-deep); }
-  .todo-list { display: grid; gap: 0.5rem; }
-  .todo-item {
-    display: flex; align-items: center; gap: 0.7rem;
-    padding: 0.6rem 0.8rem; background: var(--surface-soft); border-radius: 12px;
-    border: 1px solid rgba(236,111,158,0.12);
-  }
-  .todo-item .tbox {
-    flex: 0 0 auto; width: 22px; height: 22px; border-radius: 7px; cursor: pointer;
-    border: 2px solid var(--pink); background: #fff;
-    display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; transition: all 0.15s;
-  }
-  .todo-item.done .tbox { background: var(--rose); border-color: var(--rose); }
-  .todo-item.done .tbox::after { content: '✓'; }
-  .todo-item .ttext { flex: 1; font-size: 0.95rem; color: var(--text); word-break: break-word; }
-  .todo-item.done .ttext { color: var(--text-muted); text-decoration: line-through; }
-  .todo-del {
-    flex: 0 0 auto; background: none; border: none; color: var(--text-muted); cursor: pointer;
-    font-size: 1.2rem; line-height: 1; padding: 0.1rem 0.3rem; border-radius: 6px; transition: color 0.15s;
-  }
-  .todo-del:hover { color: var(--rose-deep); }
-  .todo-empty { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 0.5rem 0; }
 </style>
 </head>
 <body>
@@ -236,9 +202,8 @@
     <div class="card">
       <span class="tag">✨ welcome</span>
       <h2>Hi, lovely</h2>
-      <p>This little site is your personal wellness hub 💕 — your supplement plan, a monthly
-         calendar and a to-do list you fill in yourself, all in one place.
-         Change anything you like just by sending a message.</p>
+      <p>This little site is your personal wellness hub 💕 — your supplement plan and a monthly
+         calendar, all in one place. Change anything you like just by sending a message.</p>
     </div>
 
     <div class="card">
@@ -268,8 +233,16 @@
         <div class="why"><b>What it does:</b> a B-vitamin for hair strength &amp; nail growth. Working well for you. You're planning a 3-month break once this bottle's done — just message me when you stop and I'll move it. <em>(Also: pause it a few days before any blood test — it can skew thyroid &amp; cardiac labs.)</em></div>
       </div>
       <div class="row">
-        <div class="name">Vitamin D3 — 10,000 IU, 2 caps/week</div>
-        <div class="why"><b>What it does:</b> bones, immune system &amp; mood; pairs with K2 to steer calcium into bone, not arteries. With your 10,000 IU capsules, <strong>2/week works out to ~2,860 IU/day</strong> — right in the ideal 2,000-4,000 range and still well under the safe ceiling. 1/week (~1,400 IU/day) is a lighter maintenance option. Take with a fatty meal (+ K2). A blood test would confirm, but 2/week is a great target. 👍</div>
+        <div class="name">Vitamin D3 + K2 — Sports Research, 125mcg (5,000 IU) D3 / 100mcg K2 <span class="pill keep">new</span></div>
+        <div class="why"><b>What it does:</b> bones, immune system &amp; mood; the built-in K2 steers calcium into bone, not arteries. These are 5,000 IU caps, so you <strong>don't take one daily</strong> — aim for <strong>3 a week (~2,100 IU/day)</strong>, or every other day if you want a touch more (~2,500 IU/day). Both land in the ideal 2,000-4,000 range. Take with a fatty meal. A blood test would let us fine-tune. 👍</div>
+      </div>
+      <div class="row">
+        <div class="name">Collagen — Vital Proteins Peptides, unflavoured <span class="pill keep">new</span></div>
+        <div class="why"><b>What it does:</b> skin elasticity &amp; hydration, plus hair, nails and joints. ~1-2 scoops (10-20g) a day in coffee, water or a smoothie. This one already has vitamin C + hyaluronic acid built in, so it covers the "collagen needs a little vitamin C" point on its own. 💕</div>
+      </div>
+      <div class="row">
+        <div class="name">Women's multivitamin — Garden of Life Organics Women's <span class="pill keep">new</span></div>
+        <div class="why"><b>What it does:</b> a gentle safety net that fills small gaps from intermittent fasting + a lean intake. Whole-food, organic, easy on the stomach — take with your first meal.</div>
       </div>
       <div class="row">
         <div class="name">Magnesium glycinate 200mg <span class="pill keep">keep</span></div>
@@ -297,27 +270,15 @@
         <div class="why"><b>What it does:</b> heart, brain &amp; skin, calms inflammation, supports hormones &amp; fertility. You don't need the 6 &amp; 9 — a pure EPA/DHA fish oil (~1000mg+ combined) is better.</div>
       </div>
       <div class="row">
-        <div class="name">Vitamin C → Collagen <span class="pill swap">switch</span></div>
-        <div class="why"><b>What it does:</b> skin elasticity &amp; hydration, plus hair, nails and joints. Collagen peptides (~10g/day). Keep a <em>little</em> vitamin C with it — see the note below.</div>
-      </div>
-      <div class="row">
         <div class="name">Biotin → 3-month break <span class="pill test">pause</span></div>
         <div class="why">Your call to cycle it off rather than run continuously — totally reasonable. Message me when you stop and I'll update the stack.</div>
-      </div>
-      <div class="row">
-        <div class="name">Vitamin D3 → test &amp; likely raise <span class="pill test">test</span></div>
-        <div class="why">Check your levels, then move to 2000-4000 IU/day paired with K2.</div>
       </div>
       <div class="row">
         <div class="name">Add: Ferritin / iron test <span class="pill add">new</span></div>
         <div class="why"><b>What it does:</b> carries oxygen in the blood — supports energy &amp; hair. Lean + a monthly cycle often means low iron. Test, don't guess.</div>
       </div>
-      <div class="row">
-        <div class="name">Add: Women's multivitamin <span class="pill add">new</span></div>
-        <div class="why"><b>What it does:</b> a safety net that gently fills any gaps from intermittent fasting + a lean intake.</div>
-      </div>
       <div class="note" style="margin-top:1.3rem;">
-        <strong>Vitamin C + collagen — do you need both?</strong> Not two big doses, no. But they're partners, not duplicates: vitamin C is the cofactor your body <em>requires</em> to turn collagen into actual skin and joint tissue. So the sweet spot is collagen + a small amount of vitamin C (a combined powder, or ~250-500mg C on the side). If you eat plenty of fruit &amp; veg you may already get enough — the separate high-dose tablet isn't essential once you're on collagen.
+        <strong>Vitamin C + collagen — do you need both?</strong> Now that you're on collagen, you're covered: your Vital Proteins peptides already include vitamin C, so once your standalone Ester-C bottle is finished you don't need to replace it. Only keep a little extra C around if you're not eating much fruit &amp; veg.
       </div>
     </div>
 
@@ -325,8 +286,7 @@
       <h2>🕒 Your daily rhythm</h2>
       <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">Based on a ~12:00-20:00 eating window — tell me if yours is different.</p>
       <div class="schedule">
-        <div class="slot"><div class="when">🍽 First meal</div><div class="what">Omega · Vitamin D3 · Vitamin C · Biotin</div></div>
-        <div class="slot"><div class="when">🌱 New plan ones</div><div class="what">later: D3+K2 · Collagen (+ a little C) · Multivitamin</div></div>
+        <div class="slot"><div class="when">🍽 First meal</div><div class="what">Omega · Women's multivitamin · Collagen · Biotin · (Vitamin C while it lasts) · D3+K2 on your 3 days/week</div></div>
         <div class="slot"><div class="when">🏋️ Around training</div><div class="what">Creatine 5g · Whey or Clear protein (1 scoop)</div></div>
         <div class="slot"><div class="when">🌙 Evening</div><div class="what">Magnesium glycinate</div></div>
       </div>
@@ -336,12 +296,10 @@
     <div class="card">
       <h2>🛍 Shopping list</h2>
       <div class="shop">
-        <div class="shop-item"><div class="need">Omega-3 <span class="pill add">new</span></div><div class="pick">Nordic Naturals Ultimate Omega · or Now Foods Ultra Omega-3</div><div class="dose">~1000mg EPA+DHA / day</div></div>
-        <div class="shop-item"><div class="need">Vitamin D3 + K2 <span class="pill add">new</span></div><div class="pick">Sports Research D3+K2 · or Now D3 &amp; K2</div><div class="dose">2000-4000 IU D3 (adjust to your test)</div></div>
-        <div class="shop-item"><div class="need">Collagen <span class="pill add">new</span></div><div class="pick">Vital Proteins · or any peptides with vitamin C added</div><div class="dose">~10g/day — replaces your standalone vitamin C</div></div>
-        <div class="shop-item"><div class="need">Women's multivitamin <span class="pill add">new</span></div><div class="pick">Thorne Basic Nutrients · Ritual Essential · Garden of Life Women's</div><div class="dose">per label</div></div>
+        <div class="shop-item"><div class="need">Omega-3 <span class="pill add">still to buy</span></div><div class="pick">Nordic Naturals Ultimate Omega · or Now Foods Ultra Omega-3</div><div class="dose">~1000mg EPA+DHA / day — for when your Omega 3-6-9 runs out</div></div>
         <div class="shop-item"><div class="need">Iron <span class="pill test">if low</span></div><div class="pick">Thorne Iron Bisglycinate</div><div class="dose">25mg — only after a ferritin test</div></div>
-        <div class="shop-item"><div class="need">Keep as-is</div><div class="pick">Magnesium · Creatine</div><div class="dose">your current ones are great</div></div>
+        <div class="shop-item"><div class="need">✅ Just bought</div><div class="pick">D3+K2 (Sports Research) · Collagen (Vital Proteins) · Women's Multi (Garden of Life)</div><div class="dose">now in your current stack above</div></div>
+        <div class="shop-item"><div class="need">Keep as-is</div><div class="pick">Magnesium · Creatine · Whey · Clear protein</div><div class="dose">your current ones are great</div></div>
       </div>
     </div>
 
@@ -359,18 +317,6 @@
       <p style="color:var(--text-muted); font-size:0.82rem; margin-top:1rem; text-align:center;">💡 Your logged entries show on <strong>all your devices</strong>. Just message me to add or change something and I'll sync it everywhere. (You can also tap a day to jot a quick note on this device.)</p>
     </div>
 
-    <h2 class="section-title">To-Do List ✅</h2>
-    <p class="section-sub">Your own list — add whatever you like. It saves on this device.</p>
-
-    <div class="card">
-      <h2>✅ Your to-do list</h2>
-      <form class="todo-add" id="todoForm">
-        <input type="text" id="todoInput" class="todo-input" placeholder="Add a task…" autocomplete="off">
-        <button type="submit" class="todo-btn">Add</button>
-      </form>
-      <div class="todo-list" id="todoList"></div>
-      <p class="todo-empty" id="todoEmpty">Nothing here yet — add your first task above. 💕</p>
-    </div>
 
     <div class="note">
       <strong>The two biggest levers aren't pills 💛</strong> — hit your protein target, and nudge sleep from 6-7h toward 7.5-8h. Those move muscle gain and hormones more than any capsule. Pregnancy is a few years away — no need for folate/prenatal yet; you'd simply start a full prenatal ~3-6 months before trying.
@@ -392,27 +338,29 @@
       var KEY = 'forher-calendar';
       var store = {};
       try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
-      // clear stale local copies so updated baked entries (e.g. the leg-day icon) take over
+      // one-time reset of local edits so the updated baked entries (no icons, etc.) show on every device
       try {
-        if (store['2026-6-2'] === 'Leg day 💪') {
-          delete store['2026-6-2'];
-          localStorage.setItem(KEY, JSON.stringify(store));
+        if (!localStorage.getItem('forher-cal-reset-v3')) {
+          localStorage.removeItem(KEY);
+          store = {};
+          localStorage.setItem('forher-cal-reset-v3', '1');
         }
       } catch (e) {}
       // Baked-in entries — the source of truth, identical on every device.
       var BAKED = {
-        '2026-6-1': 'Hot yoga stretching 🧘‍♀️',
-        '2026-6-2': 'Leg day 🦵',
+        '2026-6-1': 'Hot yoga stretching',
+        '2026-6-2': 'Leg day',
         '2026-6-3': 'Back day',
         '2026-6-4': 'Full body',
         '2026-6-5': 'Arm day',
         '2026-6-6': 'Yoga, aquapilates, cycling',
         '2026-6-7': 'Yoga',
-        '2026-6-8': 'Leg day 🦵',
-        '2026-6-10': 'Pilates 12:30',
+        '2026-6-8': 'Leg day',
+        '2026-6-9': 'Rest day',
+        '2026-6-10': 'Pilates',
         '2026-6-13': 'Yoga 20:00',
         '2026-6-15': 'Nails 11:00',
-        '2026-6-21': 'Party 🎉'
+        '2026-6-21': 'Party'
       };
       // effective note: a local edit (incl. '' = cleared) wins, otherwise the baked entry
       function noteFor(key) { return store.hasOwnProperty(key) ? store[key] : (BAKED[key] || ''); }
@@ -465,47 +413,6 @@
         viewM++; if (viewM > 11) { viewM = 0; viewY++; } render();
       });
 
-      render();
-    })();
-
-    (function () {
-      var form = document.getElementById('todoForm');
-      var input = document.getElementById('todoInput');
-      var list = document.getElementById('todoList');
-      var empty = document.getElementById('todoEmpty');
-      if (!form) return;
-      var KEY = 'forher-todos';
-      var items = [];
-      try { items = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { items = []; }
-      function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-      function save() { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) {} }
-      function render() {
-        empty.style.display = items.length ? 'none' : 'block';
-        list.innerHTML = items.map(function (it, i) {
-          return '<div class="todo-item' + (it.done ? ' done' : '') + '" data-i="' + i + '">' +
-                 '<span class="tbox" data-act="toggle"></span>' +
-                 '<span class="ttext">' + esc(it.text) + '</span>' +
-                 '<button class="todo-del" data-act="del" aria-label="Delete">×</button>' +
-                 '</div>';
-        }).join('');
-      }
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var v = input.value.trim();
-        if (!v) return;
-        items.push({ text: v, done: false });
-        input.value = '';
-        save(); render();
-      });
-      list.addEventListener('click', function (e) {
-        var el = e.target.closest('[data-act]');
-        if (!el) return;
-        var row = e.target.closest('.todo-item');
-        var i = parseInt(row.dataset.i, 10);
-        if (el.dataset.act === 'toggle') items[i].done = !items[i].done;
-        else if (el.dataset.act === 'del') items.splice(i, 1);
-        save(); render();
-      });
       render();
     })();
   </script>
