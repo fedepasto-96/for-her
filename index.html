@@ -335,10 +335,10 @@
       try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
       // one-time reset of local edits so the updated baked entries (no icons, etc.) show on every device
       try {
-        if (!localStorage.getItem('forher-cal-reset-v3')) {
+        if (!localStorage.getItem('forher-cal-reset-v4')) {
           localStorage.removeItem(KEY);
           store = {};
-          localStorage.setItem('forher-cal-reset-v3', '1');
+          localStorage.setItem('forher-cal-reset-v4', '1');
         }
       } catch (e) {}
       // Baked-in entries — the source of truth, identical on every device.
@@ -357,7 +357,11 @@
         '2026-6-12': 'Sick',
         '2026-6-13': 'Sick',
         '2026-6-14': 'Cycling',
-        '2026-6-15': 'Nails 11:00',
+        '2026-6-15': 'Rest',
+        '2026-6-16': 'Bodypump',
+        '2026-6-17': 'Rest',
+        '2026-6-18': 'Leg day',
+        '2026-6-19': 'Boot camp',
         '2026-6-21': 'Party'
       };
       // effective note: a local edit (incl. '' = cleared) wins, otherwise the baked entry
